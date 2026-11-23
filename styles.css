@@ -260,54 +260,6 @@ body::before {
 }
 
 
-/* INTERACTIVE WORKFLOW: rises from the bottom and occupies exactly
-   the lower quarter of the viewport when fully visible. */
-.workflow-animation {
-  position: fixed;
-  inset: 0;
-  z-index: 20;
-  overflow: hidden;
-  pointer-events: none;
-}
-.workflow-animation img {
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  top: auto;
-  display: block;
-  width: min(102.5vw, 1562px);
-  height: 31.25vh;
-  max-height: 31.25vh;
-  object-fit: contain;
-  object-position: center bottom;
-  opacity: 0;
-  filter: drop-shadow(0 4px 18px rgba(0, 0, 0, .72));
-  transform: translate(-50%, 105%);
-  animation: workflow-rise-bottom 15.5s ease-in-out infinite;
-}
-@keyframes workflow-rise-bottom {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, 105%);
-  }
-  32.26% {
-    opacity: .48;
-    transform: translate(-50%, 0);
-  }
-  64.52% {
-    opacity: .48;
-    transform: translate(-50%, 0);
-  }
-  74.19% {
-    opacity: 0;
-    transform: translate(-50%, 0);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, 0);
-  }
-}
-
 /* Flowing header text: light-blue to gold gradient. The palette is
    advanced by script after each 50 punctuation marks have passed. */
 .ticker-track span {
@@ -473,4 +425,94 @@ body::before {
 @media (max-width: 700px) {
   .email-actions { flex-wrap: wrap; }
   .email-actions .copy-all-button { font-size: 12px; }
+}
+
+
+/* Full-page map sequence: 5s rise, 5s hold, 5s dissolve, 10s pause. */
+.map-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(100%);
+  animation: map-background-cycle 25s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+.map-background img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+@keyframes map-background-cycle {
+  /* 0–5 seconds: slowly rise from below and flow into the full viewport. */
+  0%   { opacity: 0; transform: translateY(100%); }
+  20%  { opacity: 1; transform: translateY(0); }
+  /* 5–10 seconds: remain still and fully visible. */
+  40%  { opacity: 1; transform: translateY(0); }
+  /* 10–15 seconds: slowly dissolve. */
+  60%  { opacity: 0; transform: translateY(0); }
+  /* 15–25 seconds: stay hidden for 10 seconds, then restart. */
+  100% { opacity: 0; transform: translateY(0); }
+}
+
+/* Keep the requested page title readable at the top on smaller screens too. */
+.site-header .heading h1 {
+  overflow-wrap: anywhere;
+}
+
+/* Place the animated map above the body color but behind all application content. */
+body > :not(.map-background) {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* INTERACTIVE WORKFLOW: animation completely disabled; map background animation is retained. */
+.workflow-animation,
+.workflow-animation img {
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+}
+
+/* INTERACTIVE WORKFLOW removed from the visible website. */
+.workflow-animation {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+
+/* Synchronize all three window surfaces with the 25-second map loop:
+   75% transparency while the map is entering/visible/leaving,
+   10% transparency while the map is hidden. */
+.panel,
+.panel-heading,
+.panel .list-area {
+  background-color: rgba(0, 0, 0, 0.90);
+  animation: panel-map-transparency 25s ease-in-out infinite;
+}
+@keyframes panel-map-transparency {
+  /* Map begins entering from below: panels become 75% transparent. */
+  0%   { background-color: rgba(0, 0, 0, 0.90); }
+  20%  { background-color: rgba(0, 0, 0, 0.25); }
+  /* Map is fully visible. */
+  40%  { background-color: rgba(0, 0, 0, 0.25); }
+  /* Map dissolves: panels return to 10% transparency. */
+  60%  { background-color: rgba(0, 0, 0, 0.90); }
+  /* Map remains hidden during the pause. */
+  100% { background-color: rgba(0, 0, 0, 0.90); }
+}
+
+/* Main page title shares the flowing text's light-blue-to-gold palette. */
+.site-header .heading h1 {
+  background: var(--ticker-gradient, linear-gradient(90deg, #a9dcff 0%, #d9f3ff 48%, #f0cf78 100%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  transition: background .5s ease;
 }

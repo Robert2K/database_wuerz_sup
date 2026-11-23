@@ -5,17 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#64265f">
   <meta name="description" content="Würzburg Database – Projekt- und Ansprechpartnerverwaltung.">
-  <title>WÜRZBURG-DATABASE</title>
+  <title>Interactive "Web-App": WÜRZBURG-DATABASE, designed as "Website"</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <div class="workflow-animation" aria-hidden="true">
-    <img src="interactive-workflow.png" alt="">
+  <div class="map-background" aria-hidden="true">
+    <img src="wuerzburg-map-background.png" alt="">
   </div>
 <header class="site-header">
     <div class="heading">
-      <h1>WÜRZBURG-DATABASE</h1>
+      <h1>Interactive "Web-App": WÜRZBURG-DATABASE, designed as "Website"</h1>
       <div class="ticker" aria-label="Nutzungshinweis">
         <div class="ticker-track">
           <span data-i18n="notice">APP dient zur Schulungszwecken und Beschleunigung der Arbeitsprozesse. Wir übernehmen KEINE HAFTUNG fürs Teilen der Daten an Dritte was strengstens VERBOTEN ist! +++ contact info: Robert Kroll.</span>
@@ -108,7 +108,7 @@
     </div>
   </main>
 
-  <footer><span data-i18n="footerTitle">WÜRZBURG-DATABASE</span><span class="footer-meta"><span data-i18n="footerCopyright">© 2026&nbsp; Robert Kroll</span><span class="version-label">version: 0.13</span></span></footer>
+  <footer><span data-i18n="footerTitle">WÜRZBURG-DATABASE</span><span class="footer-meta"><span data-i18n="footerCopyright">© 2026&nbsp; Robert Kroll</span><span class="version-label">version: 0.14</span></span></footer>
 
   <script>
     // Cycle the header ticker from light blue to gold after every 50 punctuation marks.
@@ -124,12 +124,18 @@
       ];
       let punctuationPassed = 0;
       let paletteIndex = 0;
+      document.querySelectorAll('.site-header .heading h1').forEach(title => {
+        title.style.setProperty('--ticker-gradient', palettes[0]);
+      });
       tickerTrack.addEventListener('animationiteration', () => {
         punctuationPassed += punctuationCount;
         const nextPalette = Math.floor(punctuationPassed / 50) % palettes.length;
         if (nextPalette !== paletteIndex) {
           paletteIndex = nextPalette;
           tickerTrack.style.setProperty('--ticker-gradient', palettes[paletteIndex]);
+          document.querySelectorAll('.site-header .heading h1').forEach(title => {
+            title.style.setProperty('--ticker-gradient', palettes[paletteIndex]);
+          });
         }
       });
     }
