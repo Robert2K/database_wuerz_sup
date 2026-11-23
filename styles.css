@@ -44,7 +44,7 @@ h1 { margin: 0; font-size: calc(32px * var(--zoom)); line-height: 1.05; letter-s
 .panel { border: 3px solid #080508; border-radius: 13px; overflow: hidden; min-width: 0; }
 .projects-panel { min-height: 655px; }
 .panel-heading {
-  display: grid; grid-template-columns: 22% 1fr 23%; min-height: 84px;
+  display: grid; grid-template-columns: 25% 1fr 23%; min-height: 84px;
   border-bottom: 3px solid #080508; align-items: stretch; text-align: center;
 }
 .panel-heading h2 {
@@ -146,7 +146,7 @@ footer {
 .projects-panel .list-area,
 .contacts-panel .list-area,
 .consultant-panel .list-area {
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: auto;
   scrollbar-color: #9a9a9a #000000;
@@ -275,9 +275,9 @@ body::before {
   bottom: 0;
   top: auto;
   display: block;
-  width: min(82vw, 1250px);
-  height: 25vh;
-  max-height: 25vh;
+  width: min(102.5vw, 1562px);
+  height: 31.25vh;
+  max-height: 31.25vh;
   object-fit: contain;
   object-position: center bottom;
   opacity: 0;
@@ -320,12 +320,120 @@ body::before {
 }
 @media (max-width: 700px) {
   .workflow-animation img {
-    width: 98vw;
-    height: 25vh;
-    max-height: 25vh;
+    width: 122.5vw;
+    height: 31.25vh;
+    max-height: 31.25vh;
   }
 }
 @media (prefers-reduced-motion: reduce) {
   .workflow-animation img { animation: none; opacity: .24; transform: translate(-50%, -50%); }
   .ticker-track { animation: none; }
+}
+
+
+.project-actions {
+  display: flex;
+  align-items: stretch;
+  min-width: 0;
+  border-right: 3px solid #080508;
+}
+.project-actions #add-project {
+  flex: 1 1 auto;
+  min-width: 0;
+  border-right: 0;
+}
+/* EDIT matches the ADD button in font size and violet-to-gold background. */
+.project-actions .edit-project-button {
+  align-self: stretch;
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 5px 8px;
+  border: 0;
+  border-left: 3px solid #080508;
+  border-radius: 0;
+  background: linear-gradient(135deg, #7137a8 0%, #a66ac0 48%, #d5ad45 100%);
+  color: #fff;
+  font: 700 calc(29px * var(--zoom))/1.1 Arial, sans-serif;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .65);
+  cursor: pointer;
+  transition: background .18s ease, filter .18s ease, box-shadow .18s ease;
+}
+.project-actions .edit-project-button:hover {
+  background: linear-gradient(135deg, #8750bb 0%, #bd8bd0 48%, #f0cf68 100%);
+  filter: brightness(1.08);
+  box-shadow: inset 0 0 0 2px rgba(255, 232, 160, .55);
+}
+.project-actions .edit-project-button:focus-visible {
+  outline: 3px solid #ffe28a;
+  outline-offset: -4px;
+}
+
+.footer-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  color: #fff;
+  font: 800 15px/1.25 Arial, sans-serif;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .95), 0 0 7px rgba(0, 0, 0, .8);
+}
+.version-label {
+  font: 700 13px/1.2 Arial, sans-serif;
+  color: #fff;
+  opacity: 1;
+}
+
+
+/* Allow native text selection in email lists for Ctrl+A followed by Ctrl+C. */
+.email-list-area {
+  outline-offset: -4px;
+}
+.email-list-area:focus-visible {
+  outline: 2px solid #d5ad45;
+}
+.email-list-area .contact-list,
+.email-list-area .contact-list .entry {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+
+/* All list scrollbars use the same vertical light-blue-to-gold gradient as the flow text. */
+.list-area {
+  scrollbar-width: thin;
+  scrollbar-color: #d9b64d #171923;
+}
+.list-area::-webkit-scrollbar {
+  width: 10px;
+}
+.list-area::-webkit-scrollbar-track {
+  background: rgba(18, 22, 34, 0.92);
+  border-radius: 8px;
+}
+.list-area::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #8edcff 0%, #b7d8c7 48%, #d9b64d 100%);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 8px;
+}
+.list-area::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #b3ebff 0%, #d4e2bd 48%, #f0ce63 100%);
+}
+
+
+/* Flow-text zoom: 1% = Arial 8px, 100% = Arial 30px. */
+.project-list .entry,
+.contact-list .entry {
+  font-family: Arial, sans-serif;
+  font-size: var(--flow-font, 21.07px);
+}
+@media (max-width: 600px) {
+  .project-list .entry,
+  .contact-list .entry {
+    font-size: var(--flow-font, 21.07px);
+  }
+}
+
+/* Slightly wider +ADD and correspondingly narrower -DELETE in the project header. */
+.projects-panel > .panel-heading {
+  grid-template-columns: calc(25% + 2ch) 1fr calc(23% - 2ch);
 }

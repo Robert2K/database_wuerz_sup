@@ -45,7 +45,10 @@
   <main class="dashboard">
     <section class="panel projects-panel">
       <div class="panel-heading">
-        <button class="action-button" id="add-project" type="button" data-i18n="add">+ADD</button>
+        <div class="project-actions">
+          <button class="action-button" id="add-project" type="button" data-i18n="add">+ADD</button>
+          <button class="edit-project-button" id="edit-project" type="button" data-i18n="edit">Edit</button>
+        </div>
         <h2 data-i18n="projects">Projekt-Datenbank<br>Full-Client / Web-Client</h2>
         <button class="action-button delete-button" id="delete-project" type="button" data-i18n="delete">-DELETE</button>
       </div>
@@ -72,7 +75,7 @@
           <h2 data-i18n="contacts">Projekt-Ansprechpartner<br>und Vertreter</h2>
           <button class="action-button compact delete-button" id="delete-contact" type="button" data-i18n="deleteShort">-DEL</button>
         </div>
-        <div class="list-area">
+        <div class="list-area email-list-area" tabindex="0" aria-label="Projekt-E-Mail-Adressen">
           <ul id="contact-list" class="contact-list">
             <li><button type="button" class="entry selected">Max.Mustermann@deutschebohn.com</button></li>
             <li><button type="button" class="entry">muster.maxmann@strabak.com</button></li>
@@ -88,7 +91,7 @@
           <h2 data-i18n="consultants">Eplass Technical Consultant (TC)<br>und Vertreter</h2>
           <button class="action-button compact delete-button" id="delete-consultant" type="button" data-i18n="deleteShort">-DEL</button>
         </div>
-        <div class="list-area">
+        <div class="list-area email-list-area" tabindex="0" aria-label="Technical-Consultant-E-Mail-Adressen">
           <ul id="consultant-list" class="contact-list">
             <li><button type="button" class="entry selected">max.herbert.josef@thinkprojekt.com</button></li>
             <li><button type="button" class="entry">maxima.angelina@thinkprojekt.com</button></li>
@@ -98,7 +101,7 @@
     </div>
   </main>
 
-  <footer><span data-i18n="footerTitle">WÜRZBURG-DATABASE</span><span data-i18n="footerCopyright">© 2026&nbsp; Robert Kroll</span></footer>
+  <footer><span data-i18n="footerTitle">WÜRZBURG-DATABASE</span><span class="footer-meta"><span data-i18n="footerCopyright">© 2026&nbsp; Robert Kroll</span><span class="version-label">version: 0.12</span></span></footer>
 
   <script>
     // Cycle the header ticker from light blue to gold after every 50 punctuation marks.
@@ -131,7 +134,7 @@
         projects:'Projekt-Datenbank<br>Full-Client / Web-Client',
         contacts:'Projekt-Ansprechpartner<br>und Vertreter',
         consultants:'Eplass Technical Consultant (TC)<br>und Vertreter',
-        askProject:'Name des neuen Projekts:', askContact:'E-Mail-Adresse des Ansprechpartners:',
+        edit:'Bearbeiten', askRename:'Neuen Datenbanknamen eingeben:', askProject:'Name des neuen Projekts:', askContact:'E-Mail-Adresse des Ansprechpartners:',
         askConsultant:'E-Mail-Adresse des Technical Consultants:',
         confirmDelete:'Ausgewählten Eintrag wirklich löschen?', empty:'Bitte zuerst einen Eintrag auswählen.'
       },
@@ -141,7 +144,7 @@
         projects:'Project Database<br>Full Client / Web Client',
         contacts:'Project Contacts<br>and Representatives',
         consultants:'Eplass Technical Consultant (TC)<br>and Representatives',
-        askProject:'Name of the new project:', askContact:'Contact email address:',
+        edit:'Edit', askRename:'Enter the new database name:', askProject:'Name of the new project:', askContact:'Contact email address:',
         askConsultant:'Technical consultant email address:',
         confirmDelete:'Really delete the selected entry?', empty:'Please select an entry first.'
       },
@@ -151,7 +154,7 @@
         projects:'Baza danych projektów<br>Full-Client / Web-Client',
         contacts:'Osoby kontaktowe projektu<br>i zastępcy',
         consultants:'Eplass Technical Consultant (TC)<br>i zastępcy',
-        askProject:'Nazwa nowego projektu:', askContact:'Adres e-mail osoby kontaktowej:',
+        edit:'Edytuj', askRename:'Wpisz nową nazwę bazy danych:', askProject:'Nazwa nowego projektu:', askContact:'Adres e-mail osoby kontaktowej:',
         askConsultant:'Adres e-mail konsultanta technicznego:',
         confirmDelete:'Czy na pewno usunąć wybrany wpis?', empty:'Najpierw wybierz wpis.'
       },
@@ -161,7 +164,7 @@
         projects:'Base de datos de proyectos<br>Full-Client / Web-Client',
         contacts:'Contactos del proyecto<br>y representantes',
         consultants:'Eplass Technical Consultant (TC)<br>y representantes',
-        askProject:'Nombre del nuevo proyecto:', askContact:'Correo electrónico del contacto:',
+        edit:'Editar', askRename:'Introduce el nuevo nombre de la base de datos:', askProject:'Nombre del nuevo proyecto:', askContact:'Correo electrónico del contacto:',
         askConsultant:'Correo electrónico del consultor técnico:',
         confirmDelete:'¿Eliminar realmente el elemento seleccionado?', empty:'Selecciona primero un elemento.'
       },
@@ -171,7 +174,7 @@
         projects:'Base de données des projets<br>Full-Client / Web-Client',
         contacts:'Contacts du projet<br>et représentants',
         consultants:'Eplass Technical Consultant (TC)<br>et représentants',
-        askProject:'Nom du nouveau projet :', askContact:'Adresse e-mail du contact :',
+        edit:'Modifier', askRename:'Saisissez le nouveau nom de la base de données :', askProject:'Nom du nouveau projet :', askContact:'Adresse e-mail du contact :',
         askConsultant:'Adresse e-mail du consultant technique :',
         confirmDelete:'Supprimer réellement l’élément sélectionné ?', empty:'Veuillez d’abord sélectionner un élément.'
       },
@@ -181,7 +184,7 @@
         projects:'Database dei progetti<br>Full-Client / Web-Client',
         contacts:'Contatti del progetto<br>e rappresentanti',
         consultants:'Eplass Technical Consultant (TC)<br>e rappresentanti',
-        askProject:'Nome del nuovo progetto:', askContact:'Indirizzo e-mail del contatto:',
+        edit:'Modifica', askRename:'Inserisci il nuovo nome del database:', askProject:'Nome del nuovo progetto:', askContact:'Indirizzo e-mail del contatto:',
         askConsultant:'Indirizzo e-mail del consulente tecnico:',
         confirmDelete:'Eliminare davvero la voce selezionata?', empty:'Seleziona prima una voce.'
       }
@@ -204,14 +207,20 @@
     const zoomSlider = document.getElementById('zoom-slider');
     const zoomValue = document.getElementById('zoom-value');
     function applyZoom(value) {
-      const zoom = Math.max(1, Math.min(100, Number(value)));
+      const zoom = Math.max(1, Math.min(100, Number(value) || 60));
+      // Flow text scales linearly: 1% = Arial 8px, 100% = Arial 30px.
       const flowFont = 8 + ((zoom - 1) / 99) * 22;
       document.documentElement.style.setProperty('--flow-font', flowFont.toFixed(2) + 'px');
+      zoomSlider.value = String(zoom);
       zoomValue.value = zoom + '%';
       zoomValue.textContent = zoom + '%';
-      try { localStorage.setItem('wuerzburgZoom', zoom); } catch (_) {}
+      try { localStorage.setItem('wuerzburgZoom', String(zoom)); } catch (_) {}
     }
-    zoomSlider.addEventListener('input', e => applyZoom(e.target.value));
+    zoomSlider.addEventListener('input', e => {
+      applyZoom(e.target.value);
+      requestAnimationFrame(updateAllListViewports);
+    });
+    window.addEventListener('resize', () => requestAnimationFrame(updateAllListViewports));
 
 
     // Project-specific contacts and consultants are stored persistently per database.
@@ -273,6 +282,48 @@
       });
     }
 
+    // Keep exactly 15 database rows or 5 email rows visible before scrolling is needed.
+    function updateListViewport(list, visibleRows) {
+      const area = list.closest('.list-area');
+      if (!area) return;
+      area.style.height = '';
+      area.style.maxHeight = '';
+      area.style.minHeight = '';
+      if (list.children.length <= visibleRows) return;
+
+      const lastVisibleRow = list.children[visibleRows - 1];
+      if (!lastVisibleRow) return;
+      const styles = getComputedStyle(area);
+      const bottomPadding = parseFloat(styles.paddingBottom) || 0;
+      const height = lastVisibleRow.offsetTop + lastVisibleRow.offsetHeight + bottomPadding;
+      area.style.minHeight = '0';
+      area.style.height = `${height}px`;
+      area.style.maxHeight = `${height}px`;
+    }
+
+    function updateAllListViewports() {
+      updateListViewport(projectList, 15);
+      updateListViewport(contactList, 5);
+      updateListViewport(consultantList, 5);
+    }
+
+    // Ctrl+A inside either email panel selects every address; Ctrl+C then copies
+    // the selected addresses as ordinary text for pasting into another program.
+    document.querySelectorAll('.email-list-area').forEach(area => {
+      area.addEventListener('keydown', event => {
+        if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'a') {
+          event.preventDefault();
+          const list = area.querySelector('.contact-list');
+          if (!list) return;
+          const selection = window.getSelection();
+          const range = document.createRange();
+          range.selectNodeContents(list);
+          selection.removeAllRanges();
+          selection.addRange(range);
+        }
+      });
+    });
+
     function renderProjects() {
       projectList.replaceChildren();
       databaseState.projects.forEach(project => {
@@ -293,6 +344,7 @@
       renderEntries(contactList, project.contacts);
       renderEntries(consultantList, project.consultants);
       renderProjects();
+      requestAnimationFrame(updateAllListViewports);
     }
 
     projectList.addEventListener('click', event => {
@@ -316,6 +368,16 @@
       };
       databaseState.projects.push(project);
       databaseState.activeProjectId = project.id;
+      saveDatabase();
+      renderActiveProjectLists();
+    });
+
+    document.getElementById('edit-project').addEventListener('click', () => {
+      const project = activeProject();
+      if (!project) return;
+      const value = window.prompt(translations[currentLanguage].askRename, project.name);
+      if (value === null || !value.trim()) return;
+      project.name = value.trim();
       saveDatabase();
       renderActiveProjectLists();
     });
@@ -386,16 +448,11 @@
     renderActiveProjectLists();
     saveDatabase();
 
-    try {
-      const savedLanguage = localStorage.getItem('wuerzburgLanguage') || 'de';
-      const savedZoom = localStorage.getItem('wuerzburgZoom') || '60';
-      applyLanguage(savedLanguage);
-      zoomSlider.value = savedZoom;
-      applyZoom(savedZoom);
-    } catch (_) {
-      applyLanguage('de');
-      applyZoom(60);
-    }
+    // Every page load starts with German and 60% zoom, regardless of
+    // values saved during the previous visit. Changes remain usable in-session.
+    applyLanguage('de');
+    zoomSlider.value = '60';
+    applyZoom(60);
   </script>
 </body>
 </html>
