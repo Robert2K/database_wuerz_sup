@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#64265f">
+  <meta name="description" content="Würzburg Database – Projekt- und Ansprechpartnerverwaltung.">
+  <title>WÜRZBURG-DATABASE</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="workflow-animation" aria-hidden="true">
+    <img src="interactive-workflow.png" alt="">
+  </div>
+<header class="site-header">
+    <div class="heading">
+      <h1>WÜRZBURG-DATABASE</h1>
+      <div class="ticker" aria-label="Nutzungshinweis">
+        <div class="ticker-track">
+          <span data-i18n="notice">APP dient zur Schulungszwecken und Beschleunigung der Arbeitsprozesse. Wir übernehmen KEINE HAFTUNG fürs Teilen der Daten an Dritte was strengstens VERBOTEN ist! +++ contact info: Robert Kroll.</span>
+          <span aria-hidden="true" data-i18n="notice">APP dient zur Schulungszwecken und Beschleunigung der Arbeitsprozesse. Wir übernehmen KEINE HAFTUNG fürs Teilen der Daten an Dritte was strengstens VERBOTEN ist! +++ contact info: Robert Kroll.</span>
+        </div>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="language-control" id="language-control">
+        <label class="sr-only" for="language-select">Sprache</label>
+        <select id="language-select" aria-label="Sprache">
+          <option value="en">🇬🇧&nbsp; English</option>
+          <option value="pl">🇵🇱&nbsp; Polski</option>
+          <option value="es">🇪🇸&nbsp; Español</option>
+          <option value="fr">🇫🇷&nbsp; Français</option>
+          <option value="de">🇩🇪&nbsp; Deutsch</option>
+          <option value="it">🇮🇹&nbsp; Italiano</option>
+        </select>
+      </div>
+      <label class="zoom-control" for="zoom-slider">
+        <span><span data-i18n="zoom">Zoom</span> <output id="zoom-value">60%</output></span>
+        <input id="zoom-slider" type="range" min="1" max="100" value="60" step="1">
+      </label>
+    </div>
+  </header>
+
+  <main class="dashboard">
+    <section class="panel projects-panel">
+      <div class="panel-heading">
+        <button class="action-button" id="add-project" type="button" data-i18n="add">+ADD</button>
+        <h2 data-i18n="projects">Projekt-Datenbank<br>Full-Client / Web-Client</h2>
+        <button class="action-button delete-button" id="delete-project" type="button" data-i18n="delete">-DELETE</button>
+      </div>
+      <div class="list-area">
+        <ul id="project-list" class="project-list" aria-label="Projekt-Datenbank">
+          <li><button type="button" class="entry selected">A1&nbsp; Test - Datenbank</button></li>
+          <li><button type="button" class="entry">A2&nbsp; Test - Datenbank</button></li>
+          <li><button type="button" class="entry">A3&nbsp; Test - Datenbank</button></li>
+          <li><button type="button" class="entry">A4&nbsp; Test - Datenbank</button></li>
+          <li><button type="button" class="entry">A5&nbsp; Test - Datenbank</button></li>
+          <li><button type="button" class="entry">A6&nbsp; Test - Datenbank</button></li>
+          <li><button type="button" class="entry">A7&nbsp; Test - Datenbank</button></li>
+          <li><button type="button" class="entry">A8&nbsp; Test - Datenbank</button></li>
+          <li><button type="button" class="entry">A9&nbsp; Test - Datenbank</button></li>
+          <li><button type="button" class="entry">Andere Test - Datenbank</button></li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="right-column">
+      <section class="panel contacts-panel">
+        <div class="panel-heading">
+          <button class="action-button compact" id="add-contact" type="button" data-i18n="add">+ADD</button>
+          <h2 data-i18n="contacts">Projekt-Ansprechpartner<br>und Vertreter</h2>
+          <button class="action-button compact delete-button" id="delete-contact" type="button" data-i18n="deleteShort">-DEL</button>
+        </div>
+        <div class="list-area">
+          <ul id="contact-list" class="contact-list">
+            <li><button type="button" class="entry selected">Max.Mustermann@deutschebohn.com</button></li>
+            <li><button type="button" class="entry">muster.maxmann@strabak.com</button></li>
+            <li><button type="button" class="entry">maxime.musterfrau@autobehn.com</button></li>
+            <li><button type="button" class="entry">maximilian.madmax@polizai.com</button></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="panel consultant-panel">
+        <div class="panel-heading">
+          <button class="action-button compact" id="add-consultant" type="button" data-i18n="add">+ADD</button>
+          <h2 data-i18n="consultants">Eplass Technical Consultant (TC)<br>und Vertreter</h2>
+          <button class="action-button compact delete-button" id="delete-consultant" type="button" data-i18n="deleteShort">-DEL</button>
+        </div>
+        <div class="list-area">
+          <ul id="consultant-list" class="contact-list">
+            <li><button type="button" class="entry selected">max.herbert.josef@thinkprojekt.com</button></li>
+            <li><button type="button" class="entry">maxima.angelina@thinkprojekt.com</button></li>
+          </ul>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer><span data-i18n="footerTitle">WÜRZBURG-DATABASE</span><span data-i18n="footerCopyright">© 2026&nbsp; Robert Kroll</span></footer>
+
+  <script>
+    // Cycle the header ticker from light blue to gold after every 50 punctuation marks.
+    const tickerTrack = document.querySelector('.ticker-track');
+    if (tickerTrack) {
+      const tickerText = tickerTrack.querySelector('span')?.textContent || '';
+      const punctuationCount = (tickerText.match(/[.!?,;:…¡¿。！？]/g) || []).length;
+      const palettes = [
+        'linear-gradient(90deg, #a9dcff 0%, #d9f3ff 48%, #f0cf78 100%)',
+        'linear-gradient(90deg, #c5eaff 0%, #b9d8ff 45%, #e9bd61 100%)',
+        'linear-gradient(90deg, #9ed5f4 0%, #e4eaff 50%, #f5d98d 100%)',
+        'linear-gradient(90deg, #b9e6ff 0%, #d8e8f7 50%, #d9a94f 100%)'
+      ];
+      let punctuationPassed = 0;
+      let paletteIndex = 0;
+      tickerTrack.addEventListener('animationiteration', () => {
+        punctuationPassed += punctuationCount;
+        const nextPalette = Math.floor(punctuationPassed / 50) % palettes.length;
+        if (nextPalette !== paletteIndex) {
+          paletteIndex = nextPalette;
+          tickerTrack.style.setProperty('--ticker-gradient', palettes[paletteIndex]);
+        }
+      });
+    }
+
+    const translations = {
+      de: {
+        notice: 'APP dient zur Schulungszwecken und Beschleunigung der Arbeitsprozesse. Wir übernehmen KEINE HAFTUNG fürs Teilen der Daten an Dritte was strengstens VERBOTEN ist! +++ contact info: Robert Kroll.',
+        zoom:'Zoom', footerTitle:'WÜRZBURG-DATABASE', footerCopyright:'© 2026&nbsp; Robert Kroll', invalidEmail:'Please enter a valid email address.', add:'+ADD', delete:'-DELETE', deleteShort:'-DEL',
+        projects:'Projekt-Datenbank<br>Full-Client / Web-Client',
+        contacts:'Projekt-Ansprechpartner<br>und Vertreter',
+        consultants:'Eplass Technical Consultant (TC)<br>und Vertreter',
+        askProject:'Name des neuen Projekts:', askContact:'E-Mail-Adresse des Ansprechpartners:',
+        askConsultant:'E-Mail-Adresse des Technical Consultants:',
+        confirmDelete:'Ausgewählten Eintrag wirklich löschen?', empty:'Bitte zuerst einen Eintrag auswählen.'
+      },
+      en: {
+        notice:'APP is intended for training purposes and to accelerate work processes. We accept NO LIABILITY for sharing data with third parties; sharing is STRICTLY PROHIBITED. +++ contact info: Robert Kroll.',
+        zoom:'Zoom', footerTitle:'WÜRZBURG-DATABASE', footerCopyright:'© 2026&nbsp; Robert Kroll', invalidEmail:'Please enter a valid email address.', add:'+ADD', delete:'-DELETE', deleteShort:'-DEL',
+        projects:'Project Database<br>Full Client / Web Client',
+        contacts:'Project Contacts<br>and Representatives',
+        consultants:'Eplass Technical Consultant (TC)<br>and Representatives',
+        askProject:'Name of the new project:', askContact:'Contact email address:',
+        askConsultant:'Technical consultant email address:',
+        confirmDelete:'Really delete the selected entry?', empty:'Please select an entry first.'
+      },
+      pl: {
+        notice:'APLIKACJA służy do celów szkoleniowych i przyspieszenia procesów pracy. NIE PONOSIMY ODPOWIEDZIALNOŚCI za udostępnianie danych osobom trzecim; udostępnianie jest SUROWO ZABRONIONE. +++ kontakt: Robert Kroll.',
+        zoom:'Powiększenie', footerTitle:'BAZA DANYCH WÜRZBURG', footerCopyright:'© 2026&nbsp; Robert Kroll', invalidEmail:'Wprowadź prawidłowy adres e-mail.', add:'+DODAJ', delete:'-USUŃ', deleteShort:'-USUŃ',
+        projects:'Baza danych projektów<br>Full-Client / Web-Client',
+        contacts:'Osoby kontaktowe projektu<br>i zastępcy',
+        consultants:'Eplass Technical Consultant (TC)<br>i zastępcy',
+        askProject:'Nazwa nowego projektu:', askContact:'Adres e-mail osoby kontaktowej:',
+        askConsultant:'Adres e-mail konsultanta technicznego:',
+        confirmDelete:'Czy na pewno usunąć wybrany wpis?', empty:'Najpierw wybierz wpis.'
+      },
+      es: {
+        notice:'La APP está destinada a la formación y a agilizar los procesos de trabajo. NO ASUMIMOS RESPONSABILIDAD por compartir datos con terceros; compartirlos está ESTRICTAMENTE PROHIBIDO. +++ contacto: Robert Kroll.',
+        zoom:'Zoom', footerTitle:'BASE DE DATOS WÜRZBURG', footerCopyright:'© 2026&nbsp; Robert Kroll', invalidEmail:'Introduce una dirección de correo electrónico válida.', add:'+AÑADIR', delete:'-ELIMINAR', deleteShort:'-DEL',
+        projects:'Base de datos de proyectos<br>Full-Client / Web-Client',
+        contacts:'Contactos del proyecto<br>y representantes',
+        consultants:'Eplass Technical Consultant (TC)<br>y representantes',
+        askProject:'Nombre del nuevo proyecto:', askContact:'Correo electrónico del contacto:',
+        askConsultant:'Correo electrónico del consultor técnico:',
+        confirmDelete:'¿Eliminar realmente el elemento seleccionado?', empty:'Selecciona primero un elemento.'
+      },
+      fr: {
+        notice:'L’APP est destinée à la formation et à l’accélération des processus de travail. NOUS DÉCLINONS TOUTE RESPONSABILITÉ concernant le partage de données avec des tiers ; ce partage est STRICTEMENT INTERDIT. +++ contact : Robert Kroll.',
+        zoom:'Zoom', footerTitle:'BASE DE DONNÉES WÜRZBURG', footerCopyright:'© 2026&nbsp; Robert Kroll', invalidEmail:'Veuillez saisir une adresse e-mail valide.', add:'+AJOUTER', delete:'-SUPPRIMER', deleteShort:'-SUP.',
+        projects:'Base de données des projets<br>Full-Client / Web-Client',
+        contacts:'Contacts du projet<br>et représentants',
+        consultants:'Eplass Technical Consultant (TC)<br>et représentants',
+        askProject:'Nom du nouveau projet :', askContact:'Adresse e-mail du contact :',
+        askConsultant:'Adresse e-mail du consultant technique :',
+        confirmDelete:'Supprimer réellement l’élément sélectionné ?', empty:'Veuillez d’abord sélectionner un élément.'
+      },
+      it: {
+        notice:'L’APP è destinata alla formazione e ad accelerare i processi di lavoro. NON CI ASSUMIAMO ALCUNA RESPONSABILITÀ per la condivisione dei dati con terzi; tale condivisione è SEVERAMENTE VIETATA. +++ contatto: Robert Kroll.',
+        zoom:'Zoom', footerTitle:'DATABASE WÜRZBURG', footerCopyright:'© 2026&nbsp; Robert Kroll', invalidEmail:'Inserisci un indirizzo e-mail valido.', add:'+AGGIUNGI', delete:'-ELIMINA', deleteShort:'-ELIM.',
+        projects:'Database dei progetti<br>Full-Client / Web-Client',
+        contacts:'Contatti del progetto<br>e rappresentanti',
+        consultants:'Eplass Technical Consultant (TC)<br>e rappresentanti',
+        askProject:'Nome del nuovo progetto:', askContact:'Indirizzo e-mail del contatto:',
+        askConsultant:'Indirizzo e-mail del consulente tecnico:',
+        confirmDelete:'Eliminare davvero la voce selezionata?', empty:'Seleziona prima una voce.'
+      }
+    };
+
+    let currentLanguage = 'de';
+    const languageSelect = document.getElementById('language-select');
+    function applyLanguage(lang) {
+      currentLanguage = translations[lang] ? lang : 'de';
+      document.documentElement.lang = currentLanguage;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (translations[currentLanguage][key]) el.innerHTML = translations[currentLanguage][key];
+      });
+      languageSelect.value = currentLanguage;
+      try { localStorage.setItem('wuerzburgLanguage', currentLanguage); } catch (_) {}
+    }
+    languageSelect.addEventListener('change', e => applyLanguage(e.target.value));
+
+    const zoomSlider = document.getElementById('zoom-slider');
+    const zoomValue = document.getElementById('zoom-value');
+    function applyZoom(value) {
+      const zoom = Math.max(1, Math.min(100, Number(value)));
+      const flowFont = 8 + ((zoom - 1) / 99) * 22;
+      document.documentElement.style.setProperty('--flow-font', flowFont.toFixed(2) + 'px');
+      zoomValue.value = zoom + '%';
+      zoomValue.textContent = zoom + '%';
+      try { localStorage.setItem('wuerzburgZoom', zoom); } catch (_) {}
+    }
+    zoomSlider.addEventListener('input', e => applyZoom(e.target.value));
+
+
+    // Project-specific contacts and consultants are stored persistently per database.
+    const STORAGE_KEY = 'wuerzburgProjectDatabase_v2';
+    const projectList = document.getElementById('project-list');
+    const contactList = document.getElementById('contact-list');
+    const consultantList = document.getElementById('consultant-list');
+
+    const initialProjects = [...projectList.querySelectorAll('.entry')].map((button, index) => ({
+      id: `initial-${index + 1}`,
+      name: button.textContent.trim().replace(/\s+/g, ' ')
+    }));
+
+    let databaseState;
+    try {
+      databaseState = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+    } catch (_) {
+      databaseState = null;
+    }
+
+    if (!databaseState || !Array.isArray(databaseState.projects) || !databaseState.projects.length) {
+      databaseState = {
+        activeProjectId: initialProjects[0].id,
+        projects: initialProjects.map((project, index) => ({
+          ...project,
+          contacts: index === 0 ? [
+            'Max.Mustermann@deutschebohn.com',
+            'muster.maxmann@strabak.com',
+            'maxime.musterfrau@autobehn.com',
+            'maximilian.madmax@polizai.com'
+          ] : [],
+          consultants: index === 0 ? [
+            'max.herbert.josef@thinkprojekt.com',
+            'maxima.angelina@thinkprojekt.com'
+          ] : []
+        }))
+      };
+    }
+
+    function saveDatabase() {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(databaseState)); } catch (_) {}
+    }
+
+    function activeProject() {
+      return databaseState.projects.find(project => project.id === databaseState.activeProjectId)
+        || databaseState.projects[0];
+    }
+
+    function renderEntries(list, values, selectedIndex = 0) {
+      list.replaceChildren();
+      values.forEach((value, index) => {
+        const li = document.createElement('li');
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'entry' + (index === selectedIndex ? ' selected' : '');
+        button.textContent = value;
+        li.appendChild(button);
+        list.appendChild(li);
+      });
+    }
+
+    function renderProjects() {
+      projectList.replaceChildren();
+      databaseState.projects.forEach(project => {
+        const li = document.createElement('li');
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'entry' + (project.id === databaseState.activeProjectId ? ' selected' : '');
+        button.textContent = project.name;
+        button.dataset.projectId = project.id;
+        li.appendChild(button);
+        projectList.appendChild(li);
+      });
+    }
+
+    function renderActiveProjectLists() {
+      const project = activeProject();
+      if (!project) return;
+      renderEntries(contactList, project.contacts);
+      renderEntries(consultantList, project.consultants);
+      renderProjects();
+    }
+
+    projectList.addEventListener('click', event => {
+      const button = event.target.closest('.entry');
+      if (!button) return;
+      const project = databaseState.projects.find(item => item.id === button.dataset.projectId);
+      if (!project) return;
+      databaseState.activeProjectId = project.id;
+      saveDatabase();
+      renderActiveProjectLists();
+    });
+
+    document.getElementById('add-project').addEventListener('click', () => {
+      const value = window.prompt(translations[currentLanguage].askProject);
+      if (!value || !value.trim()) return;
+      const project = {
+        id: `project-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+        name: value.trim(),
+        contacts: [],
+        consultants: []
+      };
+      databaseState.projects.push(project);
+      databaseState.activeProjectId = project.id;
+      saveDatabase();
+      renderActiveProjectLists();
+    });
+
+    document.getElementById('delete-project').addEventListener('click', () => {
+      const project = activeProject();
+      if (!project) return;
+      if (!window.confirm(translations[currentLanguage].confirmDelete)) return;
+      databaseState.projects = databaseState.projects.filter(item => item.id !== project.id);
+      if (!databaseState.projects.length) {
+        databaseState.projects.push({
+          id: `project-${Date.now()}`,
+          name: 'New Database',
+          contacts: [],
+          consultants: []
+        });
+      }
+      databaseState.activeProjectId = databaseState.projects[0].id;
+      saveDatabase();
+      renderActiveProjectLists();
+    });
+
+    function bindEmailList(list, addButtonId, deleteButtonId, promptKey, collectionKey) {
+      list.addEventListener('click', event => {
+        const button = event.target.closest('.entry');
+        if (!button) return;
+        list.querySelectorAll('.entry').forEach(entry => entry.classList.toggle('selected', entry === button));
+      });
+
+      document.getElementById(addButtonId).addEventListener('click', () => {
+        const value = window.prompt(translations[currentLanguage][promptKey]);
+        if (!value || !value.trim()) return;
+        const email = value.trim();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          alert(translations[currentLanguage].invalidEmail);
+          return;
+        }
+        const project = activeProject();
+        project[collectionKey].push(email);
+        saveDatabase();
+        renderActiveProjectLists();
+        const entries = list.querySelectorAll('.entry');
+        if (entries.length) {
+          entries.forEach(entry => entry.classList.remove('selected'));
+          entries[entries.length - 1].classList.add('selected');
+        }
+      });
+
+      document.getElementById(deleteButtonId).addEventListener('click', () => {
+        const selected = list.querySelector('.entry.selected');
+        if (!selected) {
+          alert(translations[currentLanguage].empty);
+          return;
+        }
+        if (!window.confirm(translations[currentLanguage].confirmDelete)) return;
+        const project = activeProject();
+        const value = selected.textContent;
+        const index = project[collectionKey].indexOf(value);
+        if (index !== -1) project[collectionKey].splice(index, 1);
+        saveDatabase();
+        renderActiveProjectLists();
+      });
+    }
+
+    bindEmailList(contactList, 'add-contact', 'delete-contact', 'askContact', 'contacts');
+    bindEmailList(consultantList, 'add-consultant', 'delete-consultant', 'askConsultant', 'consultants');
+
+    renderActiveProjectLists();
+    saveDatabase();
+
+    try {
+      const savedLanguage = localStorage.getItem('wuerzburgLanguage') || 'de';
+      const savedZoom = localStorage.getItem('wuerzburgZoom') || '60';
+      applyLanguage(savedLanguage);
+      zoomSlider.value = savedZoom;
+      applyZoom(savedZoom);
+    } catch (_) {
+      applyLanguage('de');
+      applyZoom(60);
+    }
+  </script>
+</body>
+</html>

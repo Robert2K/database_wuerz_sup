@@ -1,0 +1,331 @@
+* { box-sizing: border-box; }
+:root { --zoom: 1; --plum: #64265f; --plum-dark: #4e1e4b; --ink: #080508; }
+html { min-height: 100%; }
+body {
+  margin: 0; min-height: 100vh; color: var(--ink);
+  background: var(--plum);
+  font-family: Georgia, "Times New Roman", serif;
+}
+button, select, input { font: inherit; }
+.site-header {
+  min-height: 112px; padding: 12px 3.3% 18px;
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 24px;
+}
+.heading { min-width: 0; flex: 1; }
+h1 { margin: 0; font-size: calc(32px * var(--zoom)); line-height: 1.05; letter-spacing: .3px; }
+.ticker { height: calc(28px * var(--zoom)); overflow: hidden; white-space: nowrap; font-weight: 700; font-size: calc(16px * var(--zoom)); }
+.ticker-track { display: flex; width: max-content; animation: ticker 32s linear infinite; }
+.ticker-track span { flex: 0 0 auto; padding-right: 48px; }
+@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.controls { display: flex; align-items: center; gap: 12px; padding-top: 5px; font: 600 13px Arial, sans-serif; }
+.language-control, .zoom-control {
+  display: flex; align-items: center; min-height: 38px; padding: 6px 9px;
+  border: 2px solid #080508; border-radius: 7px; background: rgba(255,255,255,.08);
+}
+.language-control select {
+  width: 142px; max-width: 142px; min-height: 28px;
+  border: 0; background: transparent; color: #fff;
+  font-family: Arial, "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+  font-size: 13px; font-weight: 700; outline: none; cursor: pointer;
+  color-scheme: dark;
+}
+.language-control option {
+  color: #fff; background: #20294d;
+  font-family: Arial, "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+  font-size: 14px; padding: 8px;
+}
+.zoom-control { gap: 8px; white-space: nowrap; }
+.zoom-control output { min-width: 42px; display: inline-block; }
+#zoom-slider { width: 90px; accent-color: #111; cursor: pointer; }
+.dashboard {
+  display: grid; grid-template-columns: minmax(440px, 1.05fr) minmax(420px, 1fr);
+  gap: 4.8%; margin: 120px 2.4% 50px; align-items: start;
+}
+.panel { border: 3px solid #080508; border-radius: 13px; overflow: hidden; min-width: 0; }
+.projects-panel { min-height: 655px; }
+.panel-heading {
+  display: grid; grid-template-columns: 22% 1fr 23%; min-height: 84px;
+  border-bottom: 3px solid #080508; align-items: stretch; text-align: center;
+}
+.panel-heading h2 {
+  align-self: center; margin: 0; padding: 5px 8px;
+  font-size: calc(30px * var(--zoom)); line-height: 1.12;
+}
+.action-button {
+  border: 0; border-right: 3px solid #080508; background: transparent;
+  color: #080508; font-size: calc(29px * var(--zoom)); font-weight: 700;
+  cursor: pointer; padding: 5px 8px;
+}
+.action-button:hover { background: rgba(255,255,255,.12); }
+.delete-button { border-right: 0; border-left: 3px solid #080508; }
+.action-button.compact { font-size: calc(25px * var(--zoom)); }
+.list-area { position: relative; padding: 24px 42px 26px 30px; }
+.projects-panel .list-area { min-height: 568px; }
+.list-area::after {
+  content: ""; position: absolute; top: 0; right: 30px; bottom: 0;
+  width: 3px; background: #080508; opacity: .95;
+}
+.project-list, .contact-list { list-style: none; padding: 0; margin: 0; }
+.entry {
+  display: block; width: 100%; border: 0; border-radius: 3px;
+  padding: 2px 3px; text-align: left; background: transparent; color: #080508;
+  font-size: calc(27px * var(--zoom)); line-height: 1.28; font-weight: 700;
+  cursor: pointer; overflow-wrap: anywhere;
+}
+.entry:hover, .entry.selected { background: rgba(255,255,255,.10); }
+.right-column { display: flex; flex-direction: column; gap: 30px; }
+.contacts-panel { min-height: 405px; }
+.contacts-panel .panel-heading { grid-template-columns: 12% 1fr 12%; min-height: 84px; }
+.contacts-panel .list-area { min-height: 318px; padding: 16px 42px 20px 30px; }
+.contact-list .entry { text-align: center; font-size: calc(27px * var(--zoom)); padding: 2px 0 24px; }
+.consultant-panel { min-height: 210px; }
+.consultant-panel .panel-heading { grid-template-columns: 12% 1fr 12%; min-height: 72px; }
+.consultant-panel .panel-heading h2 { font-size: calc(27px * var(--zoom)); }
+.consultant-panel .list-area { min-height: 130px; padding: 5px 42px 12px 30px; }
+.consultant-panel .contact-list .entry { padding-bottom: 0; }
+footer {
+  display: flex; justify-content: space-between; padding: 18px 3.3%;
+  border-top: 2px solid rgba(0,0,0,.45); font: 700 12px Arial, sans-serif;
+}
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+@media (max-width: 1050px) {
+  .site-header { flex-wrap: wrap; }
+  .controls { width: 100%; justify-content: flex-end; }
+  .dashboard { margin-top: 65px; grid-template-columns: 1fr; gap: 26px; }
+  .projects-panel { min-height: 420px; }
+  .projects-panel .list-area { min-height: 330px; }
+}
+@media (max-width: 600px) {
+  .site-header { padding: 12px 15px; }
+  h1 { font-size: calc(25px * var(--zoom)); }
+  .ticker { font-size: calc(13px * var(--zoom)); }
+  .controls { justify-content: flex-start; flex-wrap: wrap; }
+  .dashboard { margin: 35px 12px 28px; }
+  .panel-heading { grid-template-columns: 19% 1fr 19%; min-height: 66px; }
+  .panel-heading h2 { font-size: calc(18px * var(--zoom)); }
+  .action-button, .action-button.compact { font-size: calc(16px * var(--zoom)); padding: 4px; }
+  .list-area { padding: 15px 25px 18px 13px; }
+  .list-area::after { right: 15px; }
+  .projects-panel .list-area { min-height: 300px; }
+  .entry { font-size: calc(17px * var(--zoom)); }
+  .contacts-panel .panel-heading, .consultant-panel .panel-heading { grid-template-columns: 16% 1fr 16%; }
+  .contacts-panel .list-area, .consultant-panel .list-area { padding: 12px 25px 15px 12px; }
+  .contact-list .entry { font-size: calc(15px * var(--zoom)); padding-bottom: 15px; }
+  .consultant-panel .panel-heading h2 { font-size: calc(16px * var(--zoom)); }
+  footer { padding: 15px; gap: 10px; flex-wrap: wrap; }
+}
+@media (prefers-reduced-motion: reduce) { .ticker-track { animation: none; } }
+
+
+/* Requested contrast: all database/contact windows use black surfaces and white text. */
+.panel,
+.panel-heading,
+.panel .list-area {
+  background: #000;
+  color: #fff;
+}
+.panel-heading h2,
+.panel .action-button,
+.panel .entry {
+  color: #fff;
+}
+.panel .action-button:hover {
+  background: #242424;
+}
+.panel .entry:hover,
+.panel .entry.selected {
+  background: #292929;
+  color: #fff;
+}
+.panel .list-area::after {
+  background: #fff;
+}
+
+
+/* Visible grey vertical scrollbars in all three database windows. */
+.projects-panel .list-area,
+.contacts-panel .list-area,
+.consultant-panel .list-area {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: auto;
+  scrollbar-color: #9a9a9a #000000;
+  scrollbar-gutter: stable;
+}
+
+/* Chromium / Edge / Safari scrollbar styling */
+.projects-panel .list-area::-webkit-scrollbar,
+.contacts-panel .list-area::-webkit-scrollbar,
+.consultant-panel .list-area::-webkit-scrollbar {
+  width: 18px;
+}
+.projects-panel .list-area::-webkit-scrollbar-track,
+.contacts-panel .list-area::-webkit-scrollbar-track,
+.consultant-panel .list-area::-webkit-scrollbar-track {
+  background: #000;
+  border-left: 2px solid #fff;
+}
+.projects-panel .list-area::-webkit-scrollbar-thumb,
+.contacts-panel .list-area::-webkit-scrollbar-thumb,
+.consultant-panel .list-area::-webkit-scrollbar-thumb {
+  background: #9a9a9a;
+  border: 2px solid #000;
+  border-radius: 7px;
+  min-height: 48px;
+}
+.projects-panel .list-area::-webkit-scrollbar-thumb:hover,
+.contacts-panel .list-area::-webkit-scrollbar-thumb:hover,
+.consultant-panel .list-area::-webkit-scrollbar-thumb:hover {
+  background: #b8b8b8;
+}
+
+.projects-panel .list-area::after,
+.contacts-panel .list-area::after,
+.consultant-panel .list-area::after {
+  display: none;
+}
+
+
+/* Violet-and-gold button backgrounds for ADD and DELETE controls */
+.panel-heading .action-button {
+  color: #fff;
+  background: linear-gradient(135deg, #7137a8 0%, #a66ac0 48%, #d5ad45 100%);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .65);
+  transition: background .18s ease, filter .18s ease, box-shadow .18s ease;
+}
+.panel-heading .action-button.delete-button {
+  background: linear-gradient(135deg, #d5ad45 0%, #a66ac0 52%, #7137a8 100%);
+}
+.panel-heading .action-button:hover {
+  background: linear-gradient(135deg, #8750bb 0%, #bd8bd0 48%, #f0cf68 100%);
+  filter: brightness(1.08);
+  box-shadow: inset 0 0 0 2px rgba(255, 232, 160, .55);
+}
+.panel-heading .action-button.delete-button:hover {
+  background: linear-gradient(135deg, #f0cf68 0%, #bd8bd0 52%, #8750bb 100%);
+}
+.panel-heading .action-button:focus-visible {
+  outline: 3px solid #ffe28a;
+  outline-offset: -4px;
+}
+
+/* Dark blue-to-pink palette with larger corner color fields.
+   Each corner glow is sized to cover approximately one quarter of the viewport. */
+body {
+  position: relative;
+  isolation: isolate;
+  background: #10172f;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 56% 56% at 0% 0%,
+      rgba(104, 137, 218, .58) 0%,
+      rgba(76, 106, 183, .42) 43%,
+      rgba(53, 75, 137, 0) 100%),
+    radial-gradient(ellipse 56% 56% at 100% 100%,
+      rgba(211, 139, 190, .56) 0%,
+      rgba(174, 111, 166, .38) 43%,
+      rgba(113, 75, 130, 0) 100%),
+    radial-gradient(ellipse at 48% 43%,
+      rgba(103, 105, 177, .24) 0%,
+      rgba(69, 76, 139, .15) 35%,
+      rgba(31, 38, 79, 0) 65%),
+    linear-gradient(135deg, #10172f 0%, #151a38 52%, #10172f 100%);
+  background-size: 100% 100%;
+  background-position: center;
+  filter: saturate(.84);
+  animation: cosmic-drift 46s ease-in-out infinite alternate;
+}
+@keyframes cosmic-drift {
+  0% {
+    transform: scale(1);
+    filter: saturate(.78) brightness(.98);
+  }
+  50% {
+    transform: scale(1.025);
+    filter: saturate(.88) brightness(1.03);
+  }
+  100% {
+    transform: scale(1.01);
+    filter: saturate(.82) brightness(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  body::before { animation: none; }
+}
+
+
+/* INTERACTIVE WORKFLOW: rises from the bottom and occupies exactly
+   the lower quarter of the viewport when fully visible. */
+.workflow-animation {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  overflow: hidden;
+  pointer-events: none;
+}
+.workflow-animation img {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  top: auto;
+  display: block;
+  width: min(82vw, 1250px);
+  height: 25vh;
+  max-height: 25vh;
+  object-fit: contain;
+  object-position: center bottom;
+  opacity: 0;
+  filter: drop-shadow(0 4px 18px rgba(0, 0, 0, .72));
+  transform: translate(-50%, 105%);
+  animation: workflow-rise-bottom 15.5s ease-in-out infinite;
+}
+@keyframes workflow-rise-bottom {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 105%);
+  }
+  32.26% {
+    opacity: .48;
+    transform: translate(-50%, 0);
+  }
+  64.52% {
+    opacity: .48;
+    transform: translate(-50%, 0);
+  }
+  74.19% {
+    opacity: 0;
+    transform: translate(-50%, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* Flowing header text: light-blue to gold gradient. The palette is
+   advanced by script after each 50 punctuation marks have passed. */
+.ticker-track span {
+  color: #bfeaff;
+  background: var(--ticker-gradient, linear-gradient(90deg, #a9dcff 0%, #d9f3ff 48%, #f0cf78 100%));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: background .5s ease;
+}
+@media (max-width: 700px) {
+  .workflow-animation img {
+    width: 98vw;
+    height: 25vh;
+    max-height: 25vh;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .workflow-animation img { animation: none; opacity: .24; transform: translate(-50%, -50%); }
+  .ticker-track { animation: none; }
+}
