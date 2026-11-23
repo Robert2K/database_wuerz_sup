@@ -26,13 +26,14 @@
     <div class="controls">
       <div class="language-control" id="language-control">
         <label class="sr-only" for="language-select">Sprache</label>
+        <img id="language-flag" class="language-flag" alt="Deutsch" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MCAzNiI+PHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjEyIiBmaWxsPSIjMDAwIi8+PHJlY3QgeT0iMTIiIHdpZHRoPSI2MCIgaGVpZ2h0PSIxMiIgZmlsbD0iI2RkMDAwMCIvPjxyZWN0IHk9IjI0IiB3aWR0aD0iNjAiIGhlaWdodD0iMTIiIGZpbGw9IiNmZmNlMDAiLz48L3N2Zz4=">
         <select id="language-select" aria-label="Sprache">
-          <option value="en">🇬🇧&nbsp; English</option>
-          <option value="pl">🇵🇱&nbsp; Polski</option>
-          <option value="es">🇪🇸&nbsp; Español</option>
-          <option value="fr">🇫🇷&nbsp; Français</option>
-          <option value="de">🇩🇪&nbsp; Deutsch</option>
-          <option value="it">🇮🇹&nbsp; Italiano</option>
+          <option value="en">English</option>
+          <option value="pl">Polski</option>
+          <option value="es">Español</option>
+          <option value="fr">Français</option>
+          <option value="de">Deutsch</option>
+          <option value="it">Italiano</option>
         </select>
       </div>
       <label class="zoom-control" for="zoom-slider">
@@ -71,7 +72,10 @@
     <div class="right-column">
       <section class="panel contacts-panel">
         <div class="panel-heading">
-          <button class="action-button compact" id="add-contact" type="button" data-i18n="add">+ADD</button>
+          <div class="email-actions">
+            <button class="action-button compact" id="add-contact" type="button" data-i18n="add">+ADD</button>
+            <button class="action-button compact copy-all-button" id="copy-contact-all" type="button" data-i18n="copyAll">Copy all</button>
+          </div>
           <h2 data-i18n="contacts">Projekt-Ansprechpartner<br>und Vertreter</h2>
           <button class="action-button compact delete-button" id="delete-contact" type="button" data-i18n="deleteShort">-DEL</button>
         </div>
@@ -87,7 +91,10 @@
 
       <section class="panel consultant-panel">
         <div class="panel-heading">
-          <button class="action-button compact" id="add-consultant" type="button" data-i18n="add">+ADD</button>
+          <div class="email-actions">
+            <button class="action-button compact" id="add-consultant" type="button" data-i18n="add">+ADD</button>
+            <button class="action-button compact copy-all-button" id="copy-consultant-all" type="button" data-i18n="copyAll">Copy all</button>
+          </div>
           <h2 data-i18n="consultants">Eplass Technical Consultant (TC)<br>und Vertreter</h2>
           <button class="action-button compact delete-button" id="delete-consultant" type="button" data-i18n="deleteShort">-DEL</button>
         </div>
@@ -101,7 +108,7 @@
     </div>
   </main>
 
-  <footer><span data-i18n="footerTitle">WÜRZBURG-DATABASE</span><span class="footer-meta"><span data-i18n="footerCopyright">© 2026&nbsp; Robert Kroll</span><span class="version-label">version: 0.12</span></span></footer>
+  <footer><span data-i18n="footerTitle">WÜRZBURG-DATABASE</span><span class="footer-meta"><span data-i18n="footerCopyright">© 2026&nbsp; Robert Kroll</span><span class="version-label">version: 0.13</span></span></footer>
 
   <script>
     // Cycle the header ticker from light blue to gold after every 50 punctuation marks.
@@ -131,6 +138,7 @@
       de: {
         notice: 'APP dient zur Schulungszwecken und Beschleunigung der Arbeitsprozesse. Wir übernehmen KEINE HAFTUNG fürs Teilen der Daten an Dritte was strengstens VERBOTEN ist! +++ contact info: Robert Kroll.',
         zoom:'Zoom', footerTitle:'WÜRZBURG-DATABASE', footerCopyright:'© 2026&nbsp; Robert Kroll', invalidEmail:'Please enter a valid email address.', add:'+ADD', delete:'-DELETE', deleteShort:'-DEL',
+        copyAll:'Alles kopieren', copiedMessage:'Alle E-Mail-Adressen wurden kopiert.',
         projects:'Projekt-Datenbank<br>Full-Client / Web-Client',
         contacts:'Projekt-Ansprechpartner<br>und Vertreter',
         consultants:'Eplass Technical Consultant (TC)<br>und Vertreter',
@@ -141,6 +149,7 @@
       en: {
         notice:'APP is intended for training purposes and to accelerate work processes. We accept NO LIABILITY for sharing data with third parties; sharing is STRICTLY PROHIBITED. +++ contact info: Robert Kroll.',
         zoom:'Zoom', footerTitle:'WÜRZBURG-DATABASE', footerCopyright:'© 2026&nbsp; Robert Kroll', invalidEmail:'Please enter a valid email address.', add:'+ADD', delete:'-DELETE', deleteShort:'-DEL',
+        copyAll:'Copy all', copiedMessage:'All email addresses have been copied.',
         projects:'Project Database<br>Full Client / Web Client',
         contacts:'Project Contacts<br>and Representatives',
         consultants:'Eplass Technical Consultant (TC)<br>and Representatives',
@@ -151,6 +160,7 @@
       pl: {
         notice:'APLIKACJA służy do celów szkoleniowych i przyspieszenia procesów pracy. NIE PONOSIMY ODPOWIEDZIALNOŚCI za udostępnianie danych osobom trzecim; udostępnianie jest SUROWO ZABRONIONE. +++ kontakt: Robert Kroll.',
         zoom:'Powiększenie', footerTitle:'BAZA DANYCH WÜRZBURG', footerCopyright:'© 2026&nbsp; Robert Kroll', invalidEmail:'Wprowadź prawidłowy adres e-mail.', add:'+DODAJ', delete:'-USUŃ', deleteShort:'-USUŃ',
+        copyAll:'Kopiuj wszystko', copiedMessage:'Wszystkie adresy e-mail zostały skopiowane.',
         projects:'Baza danych projektów<br>Full-Client / Web-Client',
         contacts:'Osoby kontaktowe projektu<br>i zastępcy',
         consultants:'Eplass Technical Consultant (TC)<br>i zastępcy',
@@ -161,6 +171,7 @@
       es: {
         notice:'La APP está destinada a la formación y a agilizar los procesos de trabajo. NO ASUMIMOS RESPONSABILIDAD por compartir datos con terceros; compartirlos está ESTRICTAMENTE PROHIBIDO. +++ contacto: Robert Kroll.',
         zoom:'Zoom', footerTitle:'BASE DE DATOS WÜRZBURG', footerCopyright:'© 2026&nbsp; Robert Kroll', invalidEmail:'Introduce una dirección de correo electrónico válida.', add:'+AÑADIR', delete:'-ELIMINAR', deleteShort:'-DEL',
+        copyAll:'Copiar todo', copiedMessage:'Se han copiado todas las direcciones de correo.',
         projects:'Base de datos de proyectos<br>Full-Client / Web-Client',
         contacts:'Contactos del proyecto<br>y representantes',
         consultants:'Eplass Technical Consultant (TC)<br>y representantes',
@@ -171,6 +182,7 @@
       fr: {
         notice:'L’APP est destinée à la formation et à l’accélération des processus de travail. NOUS DÉCLINONS TOUTE RESPONSABILITÉ concernant le partage de données avec des tiers ; ce partage est STRICTEMENT INTERDIT. +++ contact : Robert Kroll.',
         zoom:'Zoom', footerTitle:'BASE DE DONNÉES WÜRZBURG', footerCopyright:'© 2026&nbsp; Robert Kroll', invalidEmail:'Veuillez saisir une adresse e-mail valide.', add:'+AJOUTER', delete:'-SUPPRIMER', deleteShort:'-SUP.',
+        copyAll:'Tout copier', copiedMessage:'Toutes les adresses e-mail ont été copiées.',
         projects:'Base de données des projets<br>Full-Client / Web-Client',
         contacts:'Contacts du projet<br>et représentants',
         consultants:'Eplass Technical Consultant (TC)<br>et représentants',
@@ -181,6 +193,7 @@
       it: {
         notice:'L’APP è destinata alla formazione e ad accelerare i processi di lavoro. NON CI ASSUMIAMO ALCUNA RESPONSABILITÀ per la condivisione dei dati con terzi; tale condivisione è SEVERAMENTE VIETATA. +++ contatto: Robert Kroll.',
         zoom:'Zoom', footerTitle:'DATABASE WÜRZBURG', footerCopyright:'© 2026&nbsp; Robert Kroll', invalidEmail:'Inserisci un indirizzo e-mail valido.', add:'+AGGIUNGI', delete:'-ELIMINA', deleteShort:'-ELIM.',
+        copyAll:'Copia tutto', copiedMessage:'Tutti gli indirizzi e-mail sono stati copiati.',
         projects:'Database dei progetti<br>Full-Client / Web-Client',
         contacts:'Contatti del progetto<br>e rappresentanti',
         consultants:'Eplass Technical Consultant (TC)<br>e rappresentanti',
@@ -200,6 +213,10 @@
         if (translations[currentLanguage][key]) el.innerHTML = translations[currentLanguage][key];
       });
       languageSelect.value = currentLanguage;
+      const flagImage = document.getElementById('language-flag');
+      const flagSources = { en: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MCAzNiI+PHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjM2IiBmaWxsPSIjMDEyMTY5Ii8+PHBhdGggZD0iTTAgMCA2MCAzNk02MCAwIDAgMzYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSI4Ii8+PHBhdGggZD0iTTAgMCA2MCAzNk02MCAwIDAgMzYiIHN0cm9rZT0iI2M4MTAyZSIgc3Ryb2tlLXdpZHRoPSIzIi8+PHBhdGggZD0iTTMwIDB2MzZNMCAxOGg2MCIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjEyIi8+PHBhdGggZD0iTTMwIDB2MzZNMCAxOGg2MCIgc3Ryb2tlPSIjYzgxMDJlIiBzdHJva2Utd2lkdGg9IjYiLz48L3N2Zz4=", pl: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MCAzNiI+PHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjE4IiBmaWxsPSIjZmZmIi8+PHJlY3QgeT0iMTgiIHdpZHRoPSI2MCIgaGVpZ2h0PSIxOCIgZmlsbD0iI2RjMTQzYyIvPjwvc3ZnPg==", es: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MCAzNiI+PHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjM2IiBmaWxsPSIjYWExNTFiIi8+PHJlY3QgeT0iOSIgd2lkdGg9IjYwIiBoZWlnaHQ9IjE4IiBmaWxsPSIjZjFiZjAwIi8+PC9zdmc+", fr: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MCAzNiI+PHJlY3Qgd2lkdGg9IjIwIiBoZWlnaHQ9IjM2IiBmaWxsPSIjMDA1NWE0Ii8+PHJlY3QgeD0iMjAiIHdpZHRoPSIyMCIgaGVpZ2h0PSIzNiIgZmlsbD0iI2ZmZiIvPjxyZWN0IHg9IjQwIiB3aWR0aD0iMjAiIGhlaWdodD0iMzYiIGZpbGw9IiNlZjQxMzUiLz48L3N2Zz4=", de: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MCAzNiI+PHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjEyIiBmaWxsPSIjMDAwIi8+PHJlY3QgeT0iMTIiIHdpZHRoPSI2MCIgaGVpZ2h0PSIxMiIgZmlsbD0iI2RkMDAwMCIvPjxyZWN0IHk9IjI0IiB3aWR0aD0iNjAiIGhlaWdodD0iMTIiIGZpbGw9IiNmZmNlMDAiLz48L3N2Zz4=", it: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MCAzNiI+PHJlY3Qgd2lkdGg9IjIwIiBoZWlnaHQ9IjM2IiBmaWxsPSIjMDA5MjQ2Ii8+PHJlY3QgeD0iMjAiIHdpZHRoPSIyMCIgaGVpZ2h0PSIzNiIgZmlsbD0iI2ZmZiIvPjxyZWN0IHg9IjQwIiB3aWR0aD0iMjAiIGhlaWdodD0iMzYiIGZpbGw9IiNjZTJiMzciLz48L3N2Zz4=" };
+      flagImage.src = flagSources[currentLanguage];
+      flagImage.alt = languageSelect.options[languageSelect.selectedIndex].text;
       try { localStorage.setItem('wuerzburgLanguage', currentLanguage); } catch (_) {}
     }
     languageSelect.addEventListener('change', e => applyLanguage(e.target.value));
@@ -444,6 +461,36 @@
 
     bindEmailList(contactList, 'add-contact', 'delete-contact', 'askContact', 'contacts');
     bindEmailList(consultantList, 'add-consultant', 'delete-consultant', 'askConsultant', 'consultants');
+
+    async function copyAllEmails(list, button) {
+      const addresses = Array.from(list.querySelectorAll('li .entry'))
+        .map(entry => entry.textContent.trim())
+        .filter(Boolean);
+      if (!addresses.length) return;
+      const textToCopy = addresses.join('\n');
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(textToCopy);
+        } else {
+          const helper = document.createElement('textarea');
+          helper.value = textToCopy;
+          helper.setAttribute('readonly', '');
+          helper.style.position = 'fixed';
+          helper.style.opacity = '0';
+          document.body.appendChild(helper);
+          helper.select();
+          document.execCommand('copy');
+          helper.remove();
+        }
+        const original = button.textContent;
+        button.textContent = translations[currentLanguage].copiedMessage;
+        window.setTimeout(() => { button.textContent = original; }, 1600);
+      } catch (error) {
+        alert(translations[currentLanguage].copiedMessage);
+      }
+    }
+    document.getElementById('copy-contact-all').addEventListener('click', () => copyAllEmails(contactList, document.getElementById('copy-contact-all')));
+    document.getElementById('copy-consultant-all').addEventListener('click', () => copyAllEmails(consultantList, document.getElementById('copy-consultant-all')));
 
     renderActiveProjectLists();
     saveDatabase();
